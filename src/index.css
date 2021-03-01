@@ -30,11 +30,21 @@ button {
   font-size: 16px;
   width: 250px;
   position: relative;
+  transition: all 0.3s;
 }
 
 .btn:hover {
   border-color: rgba(0,0,0,.5);
   text-decoration: none;
+}
+
+.btn-submit {
+  border-radius: 10px;
+}
+
+.textarea:valid ~ .btn-submit:hover {
+  background-color: black;
+  color: white;
 }
 
 .btn:focus {
@@ -152,11 +162,16 @@ li {
 }
 
 .textarea {
-  border-radius: 4px;
+  border-radius: 10px;
   border: 1px solid #dad7d7;
   padding: 10px;
   font-size: 15px;
   height: 100px;
+  resize: none;
+  outline: none;
+}
+.textarea:focus {
+  border: 2px solid black;
 }
 
 .tweet-length {
