@@ -1,6 +1,6 @@
-import { getInitialData, saveLikeToggle } from '../utils/api'
+import { getInitialData } from '../utils/api'
 import { receiveUsers } from './users'
-import { receiveTweets, toggleTweet } from './tweets'
+import { receiveTweets } from './tweets'
 import { setAuthedUser } from './authedUser'
 import { showLoading, hideLoading } from 'react-redux-loading-bar'
 
@@ -14,16 +14,6 @@ export function handleInitialData() {
             dispatch(receiveTweets(tweets));
             dispatch(setAuthedUser(AUTHED_ID));
             dispatch(hideLoading())
-        })
-    }
-}
-
-export function handleLikeToggle(info) {
-    return (dispatch) => {
-        dispatch(toggleTweet(info))
-        saveLikeToggle(info).catch(err => {
-            alert('There is an Error');
-            dispatch(toggleTweet({...info, hasLiked: !info.hasLiked}))
         })
     }
 }
