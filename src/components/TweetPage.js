@@ -6,7 +6,6 @@ import { connect } from 'react-redux'
 class TweetPage extends Component {
     render () {
         const { tweet, id } = this.props;
-        console.log(this.props)
         return (
             <div>
                 <Tweet id={id} />
