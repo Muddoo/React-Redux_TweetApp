@@ -1,10 +1,12 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { handleAddTweet } from '../actions/tweets'
+import { Redirect } from 'react-router-dom'
 
 class NewTweet extends Component {
   state = {
     text: '',
+    toHome: false
   }
   handleChange = (e) => {
     const text = e.target.value
@@ -21,24 +23,18 @@ class NewTweet extends Component {
 
     dispatch(handleAddTweet({text, author, replyingTo: id}))
 
-    // todo: Add Tweet to Store
-
-    console.log('New Tweet: ', text)
-
     this.setState(() => ({
-      text: ''
+      text: '',
+      toHome: id ? false : true
     }))
   }
   render() {
-    const { text } = this.state
-
-    {/* todo: Redirect to / if submitted */}
-
+    const { text, toHome } = this.state
     const tweetLeft = 280 - text.length
 
     return (
       <div>
-        <h3 className='center'>Compose new Tweet</h3>
+        <h3 className='center'>{this.props.id ? this.props.parentAuthor ? `Reply to "${this.props.parentAuthor}"` : '' : 'Compose new Tweet'}</h3>
         <form className='new-tweet' onSubmit={this.handleSubmit}>
           <textarea
             placeholder="What's happening?"
@@ -62,15 +58,17 @@ class NewTweet extends Component {
               Submit
           </button>
         </form>
+        {toHome && <Redirect to='/' />}
       </div>
     )
   }
 }
 
-function mapStateToProps({authedUser}, {id}) {
+function mapStateToProps({tweets, users, authedUser}, {id}) {
     return {
         author: authedUser,
-        id
+        id,
+        parentAuthor: id && Object.values(users).find(user => user?.id === tweets[id]?.author)?.name
     }
 }
 
