@@ -5,21 +5,25 @@ import { connect } from 'react-redux'
 
 class TweetPage extends Component {
     render () {
-        const { tweets, id } = this.props;
+        const { tweet, id } = this.props;
         console.log(this.props)
         return (
             <div>
                 <Tweet id={id} />
                 <NewTweet id={id} />
-                {tweets[id] && tweets[id].replies.map(replyId => <Tweet key={replyId} id={replyId} />)}
+                {tweet.replies && tweet.replies.map(replyId => <Tweet key={replyId} id={replyId} />)}
             </div>
         )
     }
 }
 
 function mapStateToProps({tweets}, {match}) {
+    const { id } = match.params
     return {
-        tweets,
+        tweet: tweets[id] ? {
+            ...tweets[id],
+            replies: tweets[id].replies.sort((a,b) => tweets[b].timestamp - tweets[a].timestamp)
+        } : {},
         id: match.params.id
     }
 }
