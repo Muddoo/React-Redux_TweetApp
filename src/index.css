@@ -149,7 +149,7 @@ li {
 }
 
 .replying-to:hover {
-  color: #21d4f3;
+  color: #21d4f3 !important;
 }
 
 .heart-button {
@@ -183,4 +183,15 @@ li {
   margin-top: 10px;
   font-size: 20px;
   color: #C3392A;
+}
+
+.animation {
+  animation: anim 1s ease-out infinite alternate;
+}
+
+@keyframes anim {
+  to {
+    color: rgb(170, 44, 44);
+    transform: scale(1.02);
+  }
 }

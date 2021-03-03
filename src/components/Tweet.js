@@ -36,7 +36,7 @@ class Tweet extends Component {
                 <span>{name}</span>
                 <div>{formatDate(timestamp)}</div>
                 {parent && (
-                  <button className='replying-to' onClick={(e) => this.toParent(e, parent.id)}>
+                  <button className='replying-to animation' onClick={(e) => this.toParent(e, parent.id)}>
                     Replying to @{parent.author}
                   </button>
                 )}
